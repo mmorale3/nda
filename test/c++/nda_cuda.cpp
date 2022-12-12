@@ -101,6 +101,47 @@ TEST(Cuda, AssignFromView) { //NOLINT
   EXPECT_ARRAY_EQ(B, A(_, 0, 0, 0));
 }
 
+TEST(Cuda, AssignFromScalar) { //NOLINT
+  auto Aref = nda::array<value_t,2>(N, N+2);
+  Aref = 2.51;
+
+  auto A_h = nda::array<value_t,2>(N, N+2);
+
+  // array
+  auto A_d = cuarray_t<2>(N, N+2);
+  A_d = 2.51; 
+
+  A_h = A_d;
+  EXPECT_ARRAY_EQ(A_h,Aref);
+
+  {
+    // view
+    auto Av_d = A_d(_,_);
+    Av_d = 4.08;
+
+    auto Av_ref = Aref(_,_);
+    Av_ref = 4.08;
+
+    auto Av_h = A_h(_,_);
+    Av_h = Av_d;
+    EXPECT_ARRAY_EQ(Av_h,Av_ref);
+  }
+
+  {
+    // view
+    auto Av_d = A_d(range(0,N-1),range(0,N));
+    Av_d = 4.08;
+
+    auto Av_ref = Aref(range(0,N-1),range(0,N));
+    Av_ref = 4.08;
+
+    auto Av_h = A_h(range(0,N-1),range(0,N));
+    Av_h = Av_d;
+    EXPECT_ARRAY_EQ(Av_h,Av_ref);     
+  }
+
+}
+
 #include <nda/mem/handle.hpp>
 TEST(Cuda, Storage) { // NOLINT
   using namespace nda::mem;

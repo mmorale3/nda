@@ -371,9 +371,10 @@ void assign_from_ndarray(RHS const &rhs) { // FIXME noexcept {
 
         // Copy only if block-layouts are compatible, otherwise continue to fallback
         if (n_bl_dst == n_bl_src && bl_size_dst == bl_size_src) {
-          auto err [[maybe_unused]] = cudaMemcpy2D((void *)data(), bl_str_dst * sizeof(value_type), (void *)rhs.data(),
-                                                   bl_str_src * sizeof(value_type), bl_size_src * sizeof(value_type), n_bl_src, cudaMemcpyDefault);
-          ASSERT_WITH_MESSAGE(err == cudaSuccess, "CudaMemcpy2D failed with error code "s + std::to_string(err));
+          arch::device::memcopy2D((void *)data(), bl_str_dst * sizeof(value_type), 
+				  (void *)rhs.data(), bl_str_src * sizeof(value_type), 
+				  bl_size_src * sizeof(value_type), n_bl_src, 
+				  arch::device::memcopyDefault);
           return;
         }
       }
@@ -390,18 +391,39 @@ void assign_from_ndarray(RHS const &rhs) { // FIXME noexcept {
 template <typename Scalar>
 void fill_with_scalar(Scalar const &scalar) noexcept {
   // we make a special implementation if the array is 1d strided or contiguous
-  if constexpr (has_layout_strided_1d<self_t>) { // possibly contiguous
-    const long L             = size();
-    auto *__restrict const p = data(); // no alias possible here !
-    if constexpr (has_contiguous_layout<self_t>) {
-      for (long i = 0; i < L; ++i) p[i] = scalar;
+  if constexpr (mem::on_host<self_t> or mem::on_unified<self_t>) {
+    if constexpr (has_layout_strided_1d<self_t>) { // possibly contiguous
+      const long L             = size();
+      auto *__restrict const p = data(); // no alias possible here !
+      if constexpr (has_contiguous_layout<self_t>) {
+        for (long i = 0; i < L; ++i) p[i] = scalar;
+      } else {
+        const long stri  = indexmap().min_stride();
+        const long Lstri = L * stri;
+        for (long i = 0; i < Lstri; i += stri) p[i] = scalar;
+      }
     } else {
-      const long stri  = indexmap().min_stride();
-      const long Lstri = L * stri;
-      for (long i = 0; i < Lstri; i += stri) p[i] = scalar;
+      for (auto &x : *this) x = scalar;
     }
-  } else {
-    for (auto &x : *this) x = scalar;
+  } else {  // on device
+    if constexpr (has_layout_strided_1d<self_t>) { // possibly contiguous
+      if constexpr (has_contiguous_layout<self_t>) {
+        arch::device::fill_n(data(), size(), value_type(scalar));
+      } else {
+        const long stri  = indexmap().min_stride();
+        arch::device::fill2D_n(data(), stri, 1, size(), value_type(scalar));
+      }
+    } else {
+      // check for 2D layout
+      auto bl_layout = get_block_layout(*this);
+      if (bl_layout) {
+        auto [n_bl, bl_size, bl_str] = *bl_layout;
+        arch::device::fill2D_n(data(), bl_str, bl_size, n_bl, value_type(scalar));
+        return;
+      } else {
+	NDA_RUNTIME_ERROR <<"fill_with_scalar: Not implemented yet for general layout. ";
+      }
+    }
   }
 }
 
