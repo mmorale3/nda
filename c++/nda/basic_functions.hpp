@@ -329,15 +329,17 @@ namespace nda {
 
     for (auto n : range(A::rank)) {
       auto inner_size = (n == A::rank - 1) ? 1 : s[i[n + 1]] * l[i[n + 1]];
-      if( s[i[n]] == inner_size ) continue;
+      if( s[i[n]] == inner_size ) continue;  // contiguous dimension
       if( (s[i[n]] < inner_size) or // should never happen probably!
-          (s[i[n]] != inner_size and block_size < data_size) )  // second strided dimensino
-	return {}; 
+          (s[i[n]] != inner_size and block_size < data_size) )  // second strided dimension
+        return {}; 
+      // found a strided dimension with (assumed) contiguous inner blocks
       n_blocks = a.size() / inner_size;
-      ASSERT(n_blocks * inner_size == a.size());
       block_size = inner_size;
       block_str  = s[i[n]];
     }
+    ASSERT(n_blocks * block_size == a.size());
+    ASSERT(n_blocks * block_str == l[i[0]] * s[i[0]]);
 
     return std::make_tuple(n_blocks, block_size, block_str);
   }

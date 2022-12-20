@@ -71,10 +71,16 @@ namespace nda::blas::f77 {
 
   double dot(int M, const double *x, int incx, const double *Y, int incy) { return F77_ddot(&M, x, &incx, Y, &incy); }
   std::complex<double> dot(int M, const std::complex<double> *x, int incx, const std::complex<double> *Y, int incy) {
-    return F77_zdotu(&M, blacplx(x), &incx, blacplx(Y), &incy);
+std::complex<double> r(0.0);
+for(int i=0; i<M; i++,x+=incx,Y+=incy) r += (*x)*(*Y);
+return r;
+//    return F77_zdotu(&M, blacplx(x), &incx, blacplx(Y), &incy);
   }
   std::complex<double> dotc(int M, const std::complex<double> *x, int incx, const std::complex<double> *Y, int incy) {
-    return F77_zdotc(&M, blacplx(x), &incx, blacplx(Y), &incy);
+std::complex<double> r(0.0);
+for(int i=0; i<M; i++,x+=incx,Y+=incy) r += std::conj(*x)*(*Y);
+return r;
+//    return F77_zdotc(&M, blacplx(x), &incx, blacplx(Y), &incy);
   }
 
   void gemm(char op_a, char op_b, int M, int N, int K, double alpha, const double *A, int LDA, const double *B, int LDB, double beta, double *C,
