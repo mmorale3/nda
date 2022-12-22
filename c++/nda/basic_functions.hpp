@@ -39,9 +39,9 @@ namespace nda {
   }
 
   ///
-  template <typename T, mem::AddressSpace AdrSp = mem::Host, std::integral... Int>
-  auto zeros(Int... i) {
-    return zeros<T, AdrSp>(std::array<long, sizeof...(Int)>{i...});
+  template <typename T, mem::AddressSpace AdrSp = mem::Host, std::integral... Ints>
+  auto zeros(Ints... i) {
+    return zeros<T, AdrSp>(std::array<long, sizeof...(Ints)>{i...});
   }
 
   // --------------------------- ones ------------------------
