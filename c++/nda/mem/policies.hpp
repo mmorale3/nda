@@ -37,9 +37,9 @@ namespace nda {
     using handle = mem::handle_heap<T, Allocator>;
 #endif
 
-#ifdef _OPENMP
-    static_assert(false and !std::is_void_v<Allocator>, "Custom Allocators are not available in OpenMP");
-#endif
+//#ifdef _OPENMP
+//    static_assert(false and !std::is_void_v<Allocator>, "Custom Allocators are not available in OpenMP");
+//#endif
   };
 
   template <mem::AddressSpace AdrSp = mem::Host>

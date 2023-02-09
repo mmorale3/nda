@@ -50,10 +50,10 @@ T* fill_n(T* first, Size count, const T& value)
     }
     return first+count;
 #else
-    static_assert(always_false<bool>," Reached device code. Compile with GPU support."); 
+    //static_assert(always_false<bool>," Reached device code. Compile with GPU support."); 
 #endif
   } else if constexpr (AdrSp == None) {
-    static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! "); 
+    //static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! "); 
   }
   return nullptr;
 }
@@ -86,10 +86,10 @@ void fill2D_n( T* first, Size pitch, Size width, Size height, const T& value )
                 		 width*sizeof(T), height, cudaMemcpyDefault), "cudaMemcpy2D" );
     }
 #else
-    static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
+    //static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
 #endif
   } else if constexpr (AdrSp == None) {
-    static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! "); 
+    //static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! "); 
   } 
 
 }

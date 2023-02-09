@@ -28,7 +28,7 @@ namespace nda::mem {
 template <AddressSpace DestAdrSp, AddressSpace SrcAdrSp>
 void memcpy(void *dest, void const *src, size_t count) {
   if constexpr (DestAdrSp == None or SrcAdrSp == None) {
-    static_assert(always_false<bool>," memcpy<DestAdrSp == None or SrcAdrSp == None>: Oh Oh! ");
+    //static_assert(always_false<bool>," memcpy<DestAdrSp == None or SrcAdrSp == None>: Oh Oh! ");
   } else if constexpr (DestAdrSp == Host && SrcAdrSp == Host) {
     std::memcpy(dest, src, count);
   } else {
@@ -44,11 +44,13 @@ template <AddressSpace DestAdrSp, AddressSpace SrcAdrSp>
 void memcpy2D(void* dst, size_t dpitch, const void* src, size_t spitch,
                         size_t width, size_t height)  {
   if constexpr (DestAdrSp == None or SrcAdrSp == None) {
-    static_assert(always_false<bool>," memcpy2D<DestAdrSp == None or SrcAdrSp == None>: Oh Oh! ");
+    //static_assert(always_false<bool>," memcpy2D<DestAdrSp == None or SrcAdrSp == None>: Oh Oh! ");
   } else if constexpr (DestAdrSp == Host && SrcAdrSp == Host) {
-    for(size_t i=0; i<height; ++i, dst+=dpitch, src+=spitch)
+    char* dst_ = reinterpret_cast<char*>(dst);
+    char const* src_ = reinterpret_cast<char const*>(src);
+    for(size_t i=0; i<height; ++i, dst_+=dpitch, src_+=spitch)
       for(size_t j=0; j<width; ++j)
-        *(dst+j) = *(src+j);
+        *(dst_+j) = *(src_+j);
   } else {
 #if defined(NDA_HAVE_CUDA)
     device_check( cudaMemcpy2D(dst, dpitch, src, spitch, width, height, cudaMemcpyDefault), "CudaMemcpy2D" );

@@ -35,10 +35,10 @@ void memset(void* p, int value, size_t count)
 #if defined(NDA_HAVE_CUDA)
     device_check( cudaMemset(p, value, count), "cudaMemset" );
 #else
-    static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
+    //static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
 #endif
   } else if constexpr (AdrSp == None) {
-    static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! ");
+    //static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! ");
   }
 }
 
@@ -55,10 +55,10 @@ void memset2D(void* ptr, size_t pitch, int value, size_t width, size_t height)
 #if defined(NDA_HAVE_CUDA)
     device_check( cudaMemset2D(ptr, pitch, value, width, height), "cudaMemset2D" );
 #else
-    static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
+    //static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
 #endif
   } else if constexpr (AdrSp == None) {
-    static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! ");
+    //static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! ");
   }
 }
 

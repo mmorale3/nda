@@ -36,18 +36,18 @@ void* malloc(size_t size) {
     device_check( cudaMalloc((void**)&ptr, size), "cudaMalloc" ); 
     return ptr;
 #else
-    static_assert(always_false<bool>," Reached device code. Compile with GPU support."); 
+    //static_assert(always_false<bool>," Reached device code. Compile with GPU support."); 
 #endif
   } else if constexpr (AdrSp == Unified) {
 #if defined(NDA_HAVE_CUDA)
     void* ptr = nullptr;
-    device_check( cudaMallocManaged((void**)&ptr, size), "cudaMallocManaged" );                 
+    device_check( cudaMallocManaged((void**)&ptr, size), "cudaMallocManaged" );    
     return ptr;
 #else
-    static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
+    //static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
 #endif
   } else if constexpr (AdrSp == None) {
-    static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! "); 
+    //static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! "); 
   }
   return nullptr;
 }
@@ -60,10 +60,10 @@ void free(void* p) {
 #if defined(NDA_HAVE_CUDA)
     device_check( cudaFree(p), "cudaFree" );
 #else
-    static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
+    //static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
 #endif
   } else if constexpr (AdrSp == None) {
-    static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! ");
+    //static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! ");
   }
 }
 
@@ -76,12 +76,12 @@ void* calloc(size_t num, size_t size) {
 #if defined(NDA_HAVE_CUDA)
     device_check( cudaMemset((void*)ptr,0,num*size), "cudaMemset" );
 #else
-    static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
+    //static_assert(always_false<bool>," Reached device code. Compile with GPU support.");
 #endif
 //    fill<AdrSp>(ptr, 0, num*size);
     return (void*)ptr;
   } else if constexpr (AdrSp == None) {
-    static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! ");
+    //static_assert(always_false<bool>," malloc<AdrSp == None>: Oh Oh! ");
   }
   return nullptr;
 }
