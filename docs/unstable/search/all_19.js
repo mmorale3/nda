@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['p_0',['p',['../structnda_1_1clef_1_1pair.html#a5da11297960d15c4a93e9acc2c94dbdc',1,'nda::clef::pair']]],
+  ['pair_1',['pair',['../structnda_1_1clef_1_1pair.html',1,'nda::clef']]],
+  ['parent_2',['parent',['../structnda_1_1mem_1_1handle__borrowed.html#a1c47ea4fa502f02dfd07ca97c6ecd119',1,'nda::mem::handle_borrowed']]],
+  ['performing_20arithmetic_20operations_3',['Performing arithmetic operations',['../ex1.html#ex1_p8',1,'']]],
+  ['permutation_2ehpp_4',['permutation.hpp',['../permutation_8hpp.html',1,'']]],
+  ['permutations_5',['Permutations',['../group__utils__perms.html',1,'']]],
+  ['permuted_5findices_5fview_6',['permuted_indices_view',['../group__av__factories.html#ga587a5b691704422771dcaa5fcbbf32b4',1,'nda']]],
+  ['placeholder_7',['placeholder',['../structnda_1_1clef_1_1placeholder.html',1,'nda::clef']]],
+  ['placeholder_2ehpp_8',['placeholder.hpp',['../placeholder_8hpp.html',1,'']]],
+  ['placeholders_9',['Placeholders',['../group__clef__placeholders.html',1,'']]],
+  ['plus_10',['plus',['../structnda_1_1clef_1_1tags_1_1plus.html',1,'nda::clef::tags']]],
+  ['pointer_11',['pointer',['../structnda_1_1default__accessor_1_1accessor.html#a235cb5fb21863d5718f32ae89563d5cf',1,'nda::default_accessor::accessor::pointer'],['../structnda_1_1no__alias__accessor_1_1accessor.html#ae95707080c518709c83db16b9777e510',1,'nda::no_alias_accessor::accessor::pointer'],['../classnda_1_1array__iterator.html#afa9799aeb971e3f6a6d22d2d3a257e16',1,'nda::array_iterator::pointer'],['../classnda_1_1array__iterator_3_011_00_01_t_00_01_pointer_01_4.html#a5d0993e10871b1f1dfaf29ba7aaf949b',1,'nda::array_iterator&lt; 1, T, Pointer &gt;::pointer'],['../classnda_1_1array__iterator.html#afa9799aeb971e3f6a6d22d2d3a257e16',1,'nda::array_iterator&lt; 1, T, Pointer &gt;::pointer']]],
+  ['policies_12',['policies',['../group__layout__pols.html',1,'Layout policies'],['../group__mem__pols.html',1,'Memory policies']]],
+  ['policies_2ehpp_13',['policies.hpp',['../layout_2policies_8hpp.html',1,'(Global Namespace)'],['../mem_2policies_8hpp.html',1,'(Global Namespace)']]],
+  ['pop_14',['pop',['../group__utils__std.html#ga372f86a44ea753a1845c8f056c7a2a2b',1,'nda::stdutil']]],
+  ['pow_15',['pow',['../group__clef__expr.html#gaa90a95616e4d2765f3cea52a2e88cf47',1,'nda::clef::pow()'],['../group__av__math.html#ga6900d4319e73e27201a65f96d082289f',1,'nda::pow()']]],
+  ['print_2ehpp_16',['print.hpp',['../print_8hpp.html',1,'']]],
+  ['print_5fhistogram_17',['print_histogram',['../classnda_1_1mem_1_1stats.html#a654a54e2728583b2dc41690a4e2c827b',1,'nda::mem::stats']]],
+  ['print_5ftuple_18',['print_tuple',['../group__clef__utils.html#ga939b5f2a463e2e3f20130ea7d9216642',1,'nda::clef']]],
+  ['printing_20an_20array_19',['Printing an array',['../ex1.html#ex1_p3',1,'']]],
+  ['product_20',['product',['../group__av__algs.html#ga767f1ffe11006beb7dfe9318565ab789',1,'nda::product()'],['../group__utils__std.html#gae4b418662bf69455beb672c5ef2d6301',1,'nda::stdutil::product()']]],
+  ['projects_21',['Integration in C++ projects',['../integration.html',1,'']]],
+  ['prop_22',['prop',['../structnda_1_1layout__info__t.html#a351eb4acb2b4d8f3fd17fab9a7512adb',1,'nda::layout_info_t']]],
+  ['ptr_23',['ptr',['../structnda_1_1mem_1_1blk__t.html#a96eb83f5e729b2c601dba97155cacee9',1,'nda::mem::blk_t']]]
+];
